@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var redis = require('redis');
-var client = redis.createClient(6379, '127.0.0.1');
 var async = require("async");
 var xregexp = require('xregexp').XRegExp;
 
-var auth = require('../service/auth/auth.js');
+var redis = require('../modules/redis-connection/connection.js');
+var session = require('../modules/redis-session/session.js');
 
 // check validate json
 router.use('/register', function(req, res, next) {
@@ -28,7 +27,7 @@ router.post('/register', function(req, res) {
   async.series([
     // check user is exists
     function(callback) {
-      client.exists(body.username, function (err, result) {
+      redis.exists(body.username, function (err, result) {
         if (err) {
           console.log('Redis err (exists user): ' + err);
           res.status(500);
@@ -72,7 +71,7 @@ router.post('/register', function(req, res) {
 
     // register logic
     function(callback) {
-      client.HMSET(body.username, 'password', body.password, function(err, reply) {
+      redis.HMSET(body.username, 'password', body.password, function(err, reply) {
         if (err) {
           console.log('Redis err (HMSET - register user): ' + err);
           res.status(500);
@@ -123,7 +122,7 @@ router.post('/login', function(req, res) {
   async.series([
     // find exists username
     function(callback) {
-      client.exists(username, function (err, reply) {
+      redis.exists(username, function (err, reply) {
         if (err) {
           console.log('Redis err (EXISTS - exists user): ' + err);
           res.status(500);
@@ -139,7 +138,7 @@ router.post('/login', function(req, res) {
     }
     // check password
     , function(callback) {
-      client.hget(username, 'password', function (err, reply) {
+      redis.hget(username, 'password', function (err, reply) {
         if (err) {
           console.log('Redis err (hget - username password check) : ' + err);
           res.status(500);
@@ -164,7 +163,7 @@ router.post('/login', function(req, res) {
     }
     // generate session key
     , function(callback) {
-
+      console.log(session.create());
     }
   ], function(err, results) {
 
