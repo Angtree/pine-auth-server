@@ -14,7 +14,6 @@ var EXPIRE_TIME = 60 * 60 * 6;
  *  key (session_key), expire_date, username
  */
 exports = module.exports = function () {
-
 };
 
 exports.asyncGenerate = function (username, callback) {
@@ -33,8 +32,12 @@ exports.asyncGenerate = function (username, callback) {
       reply = '';
     }
     if (callback !== undefined) {
-      reply = reply == 1 ? sessionKey : undefined;
-      setTimeout(callback(err, reply), 0);
+      if (reply == 'OK') {
+        setTimeout(callback(err, sessionKey, expireTime), 0);
+      }
+      else {
+        setTimeout(callback(new Error('Redis session create error: ' + reply)), 0);
+      }
     }
   });
 };
