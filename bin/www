@@ -8,10 +8,6 @@ var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
 });
 
-
-
-
-
 //var crypto = require('crypto');
 //var cipher = crypto.createCipher('aes128', 'password');
 //cipher.update('hello, world', 'utf8', 'binary');
