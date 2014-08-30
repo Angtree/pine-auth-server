@@ -19,8 +19,18 @@ Run tests
     $ mocha ./test --recursive --reporter nyan
 
 
+Project documentation
+======================
 
+  * Install yuidocjs
+  
+    $ npm install -g yuidocjs
+    
+  * Run yuidoc
+  
+    $ yuidoc .
 
+  * View out/index.html page
 
 
 ## Quick Examples
