@@ -5,8 +5,10 @@ var session = require(SOURCE_ROOT+'/modules/session/session');
 
 describe('INTEGRATION TEST: src/modules/session/session', function() {
   describe('#createSession', function() {
-    it('Simple test should success.', function() {
-      session.createSession('namhoon', function(){});
+    it('Simple test should success.', function(done) {
+      session.createSession('namhoon', function(err, result){
+        done();
+      });
     });
 
     it('Invalid arguments throws error', function() {
