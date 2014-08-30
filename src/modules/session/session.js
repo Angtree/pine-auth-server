@@ -1,25 +1,17 @@
 'use strict';
-var redisConnection = require('./redisconnection');
+var connection = require('./redisconnection').getConnection();
 
-var expire = 6 * 60 * 60;
+var expireTime = 6 * 60 * 60;
 
 var SCHEMA = 'session:';
 var COL_EXPIRE_DATE = 'expire_date';
-var COL_USER = 'user';
+var COL_USERNAME = 'username';
 
-var connection = null;
+var session = {};
 
-var session = function() {
-  this.connected = false;
-
-  getConnection();
-
-  function getConnection(callback) {
-    connection = redisConnection.getConnection(function(err, result) {
-      if (err !== null) {
-        console.log(err);
-        throw err;
-      }
-    });
-  }
+session.createSession = function(username, callback) {
+  if (arguments.length !== 2 || username === 'undefined' || username == 'function')
+    throw new Error('Arguments does not match.');
 };
+
+module.exports = session;
