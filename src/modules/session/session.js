@@ -31,7 +31,7 @@ var session = {};
  *
  * @method createSession
  * @param username {String}
- * @param callback {Function} callback function(err, result). result parameter is sessionKey.
+ * @param callback {Function} callback function(err, result). result parameter is session id.
  * @example
  *   session.createSession('+821012345678', function(err, result) { ... });
  */
@@ -39,7 +39,7 @@ session.createSession = function(username, callback) {
   if (arguments.length !== 2 || username === 'undefined' || username == 'function')
     throw new Error('Arguments does not match.');
 
-  var sessionKey = SCHEMA + generateSessionString();
+  var sessionid = generateSessionString();
   var expireDate = getExpireDate(EXPIRE_SESSION_TIME);
 
   async.series([
@@ -47,26 +47,43 @@ session.createSession = function(username, callback) {
     setExpireKey
   ],
   function(err, results) {
-    if (err) throw err;
-    callback();
+    callback(err, sessionid);
   });
 
   function insertSessionKey(callback) {
-    connection.hmset(sessionKey, {
-      COL_USERNAME: username,
-      COL_EXPIRE_DATE: expireDate.toUTCString()
-    }, function(err, result) {
-      if (err) err = new error.SessionError('SessionError: Can not create session: ' + err);
-      callback(err);
+    connection.hmset(SCHEMA + sessionid, COL_USERNAME, username, COL_EXPIRE_DATE, expireDate.toUTCString(),
+      function(err, result) {
+       if (err) err = new error.SessionError('SessionError: Can not create session: ' + err);
+       callback(err);
     });
   }
 
   function setExpireKey(callback) {
-    connection.expire(sessionKey, EXPIRE_SESSION_TIME, function(err, result) {
+    connection.expire(SCHEMA + sessionid, EXPIRE_SESSION_TIME, function(err, result) {
       if (err) err = new error.SessionError('SessionError: Can not create session: ' + err);
       callback(err);
     });
   }
+};
+
+/**
+ * Get username from sessionKey
+ *
+ * @method getUsername
+ * @param sessionid {String} session id
+ * @param callback {Function} callback function
+ * @return {String} username
+ * @example
+ *   session.getUsername('2a4c88d030601', function(err, result) { ... })
+ */
+session.getUsername = function(sessionid, callback) {
+  if (arguments.length !== 2 || sessionid === 'undefined' || sessionid == 'function')
+    throw new Error('Arguments does not match.');
+
+  connection.hget(SCHEMA + sessionid, COL_USERNAME, function(err, result) {
+    if (err) err = new error.SessionError('SessionError: Can not get session: ' + err);
+    callback(err, result);
+  });
 };
 
 /**

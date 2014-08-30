@@ -17,4 +17,17 @@ describe('INTEGRATION TEST: src/modules/session/session', function() {
       (function(){session.createSession(function invalidFunc(){});}).should.throw(Error);
     });
   });
+  describe('#getUsername', function() {
+    it('Get username should success after create session', function(done) {
+      var username = '+821012345678';
+      session.createSession(username, function(err, result) {
+        if (err) throw new Error();
+        session.getUsername(result, function(err, result) {
+          if (err) throw new Error();
+          (result).should.equal(username);
+          done();
+        });
+      });
+    });
+  });
 });
