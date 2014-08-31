@@ -12,6 +12,15 @@ describe('INTEGRATION TEST: src/modules/user/user', function() {
         done();
       });
     });
+
+    it('Error returned already user exists', function(done) {
+      user.createUser('+821012345678', 'abcd1234', function(err, result) {
+        user.createUser('+821012345678', 'abcd1234', function(err, result) {
+          should.exist(err);
+          done();
+        });
+      });
+    });
   });
 
   describe('#exists', function() {
