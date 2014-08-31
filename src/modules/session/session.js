@@ -9,7 +9,7 @@
 var uuid = require('node-uuid');
 var async = require('async');
 
-var connection = require('./_redisconnection').getConnection();
+var connection = require(SOURCE_ROOT+'/modules/redisconnection/redisconnection').getConnection();
 var error = require('./_error');
 
 
