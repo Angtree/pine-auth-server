@@ -1,5 +1,6 @@
 'use strict';
 var redis = require('redis');
+var error = require('./_error');
 
 var redisconnection = {};
 

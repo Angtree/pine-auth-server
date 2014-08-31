@@ -1,11 +1,10 @@
+'use strict';
 /**
  * Session module
  *
  * @module session
  */
 
-
-'use strict';
 var uuid = require('node-uuid');
 var async = require('async');
 
