@@ -5,6 +5,7 @@ GLOBAL = {};
 
 PROJECT_ROOT = path.join(path.dirname(__filename), '../');
 SOURCE_ROOT = path.join(PROJECT_ROOT, 'src');
+TEST_ROOT = path.join(PROJECT_ROOT, 'test');
 
 
 GLOBAL.port = 8300;

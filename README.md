@@ -20,7 +20,7 @@ Run tests
   
   3. Run mocha test
     
-    $ mocha ./test --recursive --reporter nyan
+    $ mocha --reporter nyan --require bin/global $(find ./test -name '*test.js') 
 
 
 Project documentation
