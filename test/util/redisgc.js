@@ -9,6 +9,7 @@ RedisGC.deleteKey = function(key, callback) {
     ['del', 'user:'+key],
     ['del', 'session:'+key]
   ]).exec(function (err, replies) {
+    if (err) console.log(err.message);
     callback(null);
   });
 };

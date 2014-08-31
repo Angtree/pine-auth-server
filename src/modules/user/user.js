@@ -112,7 +112,7 @@ User.checkPassword = function(username, password, callback) {
   function checkUserExists(callback) {
     User.exists(username, function(err, result) {
       var error = null;
-      if (result == false) error = new Errors.UserError('UserError: User does not exists.');
+      if (result == false) error = new Errors.UserNotExistsError('UserError: User does not exists.');
       callback(error);
     });
   }
