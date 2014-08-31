@@ -13,8 +13,12 @@ Run tests
   1. Start redis server
     
     $ redis-server /usr/local/etc/redis.conf
+    
+  2. Start express server
   
-  2. Run mocha test
+    $ node bin/www 
+  
+  3. Run mocha test
     
     $ mocha ./test --recursive --reporter nyan
 
