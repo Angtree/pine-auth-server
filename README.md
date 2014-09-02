@@ -23,6 +23,28 @@ Run tests
     $ mocha --reporter nyan --require bin/global $(find ./test -name '*test.js') 
 
 
+How to run project
+======================
+
+  1. Set settings environment
+
+    $ export AUTH_SERVER_SETTINGS=local (or development or production)
+    
+    $ export DEBUG=app:* \# DEBUG=info:*,warn:*,error:* or DEBUG=error:*
+    
+  2. Run server
+  
+    $ node bin/www
+    
+  Or, just typing below:
+  
+    $ AUTH_SERVER_SETTINGS=local DEBUG=info:*,warn:*,error:*,-express:* node bin/www
+    
+  logging with stdout (write to file) you can see Date#toUTCString with logging
+  
+    $ AUTH_SERVER_SETTINGS=local DEBUG=info:*,warn:*,error:*,-express:* node bin/www > run.log   # (optional) & tail -f run.log
+
+
 Project documentation
 ======================
 
