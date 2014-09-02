@@ -1,6 +1,5 @@
 var path = require('path');
 var debug = require('debug');
-//var colors = require('colors');
 var env = process.env.AUTH_SERVER_SETTINGS || 'local';
 
 GLOBAL = {};

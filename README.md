@@ -30,7 +30,7 @@ How to run project
 
     $ export AUTH_SERVER_SETTINGS=local (or development or production)
     
-    $ export DEBUG=app:* \# DEBUG=info:*,warn:*,error:* or DEBUG=error:*
+    $ export DEBUG=info:*,warn:*,error:* \# DEBUG=* or DEBUG=error:*
     
   2. Run server
   
