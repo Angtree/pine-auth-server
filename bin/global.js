@@ -29,6 +29,11 @@ TEST_ROOT = path.join(PROJECT_ROOT, 'test');
   };
 
   var development = {
+    port: 8300,
+    db: {
+      host: 'localhost',
+      port: 6379
+    }
   };
 
   var production = {
@@ -37,7 +42,7 @@ TEST_ROOT = path.join(PROJECT_ROOT, 'test');
   // parse config
   switch (env) {
     case 'local':       GLOBAL = overwriteSettings(base, local); break;
-    case 'development': throw new Error('development settings not set.');
+    case 'development': GLOBAL = overwriteSettings(base, development); break;
     case 'production':  throw new Error('production settings not set.');
     default:            throw new Error('SETTINGS environment can be one of \'local\', \'development\', \'production\'.');
   }

@@ -26,6 +26,12 @@ Run tests
 How to run project
 ======================
 
+  0. Prerequisites
+  
+     * node v0.10.31
+     * redis v2.8
+     * install npm dependency modules 
+
   1. Set settings environment
 
     $ export AUTH_SERVER_SETTINGS=local (or development or production)
@@ -38,7 +44,11 @@ How to run project
     
   Or, just typing below:
   
-    $ AUTH_SERVER_SETTINGS=local DEBUG=info:*,warn:*,error:*,-express:* node bin/www
+    $ AUTH_SERVER_SETTINGS=local DEBUG=info:*,warn:*,error:*,-express:* && node bin/www
+    
+    or (on development server)
+    
+    $ AUTH_SERVER_SETTINGS=development DEBUG=info:*,warn:*,error:*,-express:* && node bin/www
     
   logging with stdout (write to file) you can see Date#toUTCString with logging
   
